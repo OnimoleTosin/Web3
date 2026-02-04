@@ -1,9 +1,9 @@
 "use client"
 
-
-
 import Image from "next/image"
 import { useRouter } from "next/navigation"
+import media from "../assets/media.png"
+
 
 export default function Hero() {
     const router = useRouter()
@@ -37,22 +37,46 @@ export default function Hero() {
                     {/* CTA */}
                     <button
                         onClick={() => router.push("/wallet")}
-                        className="cursor-pointer mt-8 inline-flex items-center gap-2 rounded-lg bg-blue-600 px-6 py-3 text-white font-medium hover:bg-blue-700 transition"
+                        className="
+        cursor-pointer
+        mt-8
+        inline-flex
+        items-center
+        gap-2
+        rounded-4xl
+        bg-blue-600
+        px-6
+        py-3
+        font-bold
+        text-white
+        transform
+        transition-all
+        duration-300
+        ease-in-out
+        hover:bg-blue-700
+        hover:scale-105
+    "
                     >
                         Connect
-                        <span aria-hidden>›</span>
+                        <span
+                            className="transition-transform duration-300 ease-in-out group-hover:translate-x-1"
+                            aria-hidden="true"
+                        >
+                            ›
+                        </span>
                     </button>
+
                 </div>
 
                 {/* RIGHT: Illustration */}
                 <div className="relative w-full h-[420px]">
-                    {/* <Image
-                        src="/hero.png"
+                    <Image
+                        src={media}
                         alt="Dapps illustration"
                         fill
                         className="object-contain"
                         priority
-                    /> */}
+                    />
                 </div>
 
             </div>

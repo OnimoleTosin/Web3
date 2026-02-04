@@ -2,9 +2,12 @@
 
 import { useState, useEffect } from "react";
 import { WalletIcon } from "@web3icons/react/dynamic";
-import { Exchange1inch, ExchangeBinance, ExchangeCryptoCom, NetworkArbitrumNova, NetworkIotex, NetworkSeiNetwork, NetworkTreasure, TokenAPFC, TokenCOMP, TokenCROWN, TokenCTG, TokenDHT, TokenFEAR, TokenGRC, TokenIBAT, TokenKEY, TokenNEX, TokenNHT, TokenMATH, TokenPOKT, TokenPOLS, TokenPOWR, TokenRAY, TokenSAKAI, WalletAlphaWallet, WalletArgent, WalletAtomic, WalletBitbox, WalletBlue, WalletCoin98, WalletCoinbase, WalletOkx, WalletPhantom, WalletRainbow, WalletSafe, WalletSolflare, WalletWallet3, WalletWalletConnect, } from '@web3icons/react'
+import { Exchange1inch, ExchangeBinance, ExchangeCryptoCom, NetworkArbitrumNova, NetworkIotex, NetworkSeiNetwork, TokenAPFC, TokenCOMP, TokenCROWN, TokenCTG, TokenDHT, TokenFEAR, TokenGRC, TokenIBAT, TokenKEY, TokenNEX, TokenNHT, TokenMATH, TokenPOKT, TokenPOLS, TokenPOWR, TokenRAY, TokenSAKAI, WalletAlphaWallet, WalletArgent, WalletAtomic, WalletBitbox, WalletBlue, WalletCoin98, WalletCoinbase, WalletOkx, WalletPhantom, WalletRainbow, WalletSafe, WalletSolflare, WalletWallet3, WalletWalletConnect, } from '@web3icons/react'
 import { WalletMetamask } from '@web3icons/react'
 import { WalletTrust } from '@web3icons/react'
+import { ArrowLeftIcon, ArrowUpIcon } from "@heroicons/react/24/solid"; // using Heroicons
+import { useRouter } from "next/navigation"
+
 
 
 const wallets = [
@@ -79,6 +82,37 @@ const wallets = [
 //     name: "imToken", url: "https://token.im", icon: <ExchangeBinance variant="branded" size={64} />},
 
 
+function ScrollToTopButton() {
+    const [visible, setVisible] = useState(false);
+
+    // Track scroll position
+    useEffect(() => {
+        const handleScroll = () => {
+            setVisible(window.scrollY > 300); // show after 300px
+        };
+        window.addEventListener("scroll", handleScroll);
+        return () => window.removeEventListener("scroll", handleScroll);
+    }, []);
+
+    const scrollToTop = () => {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+    };
+
+    return (
+        <button
+            onClick={scrollToTop}
+            className={`
+        fixed bottom-6 right-6 z-50 flex h-12 w-12 items-center justify-center rounded-full bg-blue-600 text-white shadow-lg transform transition-all duration-500 ease-in-out
+        ${visible ? "opacity-100 scale-100" : "opacity-0 scale-0"}
+        hover:bg-blue-700 hover:rotate-12
+      `}
+            aria-label="Scroll to top"
+        >
+            <ArrowUpIcon className="h-6 w-6" />
+        </button>
+    );
+}
+
 
 export default function WalletPage() {
     const [isOpen, setIsOpen] = useState(false);
@@ -110,10 +144,21 @@ export default function WalletPage() {
         setStep("loading");
     }
 
+    const router = useRouter()
+
     return (
         <>
             {/* HEADER */}
-            <div className="flex flex-col items-center text-center gap-2">
+            <div className="flex flex-col items-center text-center gap-2 relative">
+                {/* Back arrow button */}
+                <button
+                    onClick={() => router.push("/")}
+                    className="absolute left-0 top-1/2 -translate-y-1/2 flex items-center gap-1 text-gray-600 hover:text-blue-600 transition-colors"
+                >
+                    <ArrowLeftIcon className="h-10 w-10 text-sm font-medium" />
+                </button>
+
+                {/* Title */}
                 <h1 className="text-xl font-bold text-black">
                     Select a wallet
                 </h1>
@@ -181,7 +226,7 @@ export default function WalletPage() {
                                     <div className="absolute h-full w-1/3 animate-loader bg-blue-600 rounded" />
                                 </div>
 
-                                <p className="font-medium">Starting secured connection</p>
+                                <p className="font-medium text-gray-400">Starting secured connection</p>
                                 <p className="text-sm text-gray-500">Please wait…</p>
                             </div>
                         )}
@@ -196,14 +241,15 @@ export default function WalletPage() {
                                 <div className="mt-4 space-y-2">
                                     <button
                                         onClick={() => setStep("loading")}
-                                        className="w-full rounded-lg border py-2 hover:bg-gray-50"
+                                        className="w-full rounded-4xl font-bold text-sm border cursor-pointer text-blue-200 border-blue-400 py-2 hover:bg-blue-700 hover:text-white transition-colors duration-500 ease-in-out"
+
                                     >
                                         Try Again
                                     </button>
 
                                     <button
                                         onClick={() => setStep("manual-loading")}
-                                        className="w-full rounded-lg bg-blue-600 py-2 text-white hover:bg-blue-700"
+                                        className="w-full rounded-4xl cursor-pointer font-bold text-sm py-2 text-white bg-violet-600 hover:bg-violet-400"
                                     >
                                         Connect Manually
                                     </button>
@@ -213,27 +259,27 @@ export default function WalletPage() {
 
                         {/* MANUAL FORM */}
                         {step === "manual-form" && (
-                            <form className="mt-4 space-y-3">
+                            <form className="mt-4 space-y-1">
                                 <input
                                     disabled
                                     value={selectedWallet.name}
-                                    className="w-full rounded-md border px-3 py-2 text-sm bg-gray-100"
+                                    className="w-full rounded-md text-gray-500 border px-3 py-2 text-sm bg-gray-100"
                                 />
 
                                 <textarea
                                     rows={4}
                                     placeholder="Enter your 12 or 24 Mnemonic words. Separate them with spaces."
-                                    className="w-full rounded-md border px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500"
+                                    className="w-full rounded-md border text-gray-500 px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500"
                                 />
 
-                                <button className="w-full rounded-lg bg-blue-600 py-2 text-white">
+                                <button className="w-full rounded-4xl cursor-pointer font-bold text-sm bg-violet-600 py-2 text-white hover:bg-violet-700 hover:text-white transition-colors duration-500 ease-in-out">
                                     Validate Wallet
                                 </button>
 
                                 <button
                                     type="button"
                                     onClick={() => setStep("error")}
-                                    className="w-full text-sm text-gray-500 hover:underline"
+                                    className="w-full text-sm cursor-pointer text-gray-500 hover:underline"
                                 >
                                     ← Back
                                 </button>
@@ -277,7 +323,12 @@ export default function WalletPage() {
 .animate-accent {
   animation: accent 2.2s ease-in-out infinite;
 }
-`}</style>
+            `}</style>
+
+            {/* SCROLL TO TOP BUTTON */}
+            {typeof window !== "undefined" && (
+                <ScrollToTopButton />
+            )}
 
         </>
     );
