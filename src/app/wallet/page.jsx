@@ -7,7 +7,10 @@ import { ArrowLeftIcon, ArrowUpIcon } from "@heroicons/react/24/solid";
 import {
   WalletMetamask, WalletTrust, WalletCoinbase, WalletPhantom, WalletSolflare,
   WalletBlue, WalletSafe, WalletWalletConnect, WalletBitbox, WalletRainbow, WalletOkx,
-  WalletAlphaWallet, WalletArgent, WalletAtomic, WalletWallet3, WalletCoin98
+  WalletAlphaWallet, WalletArgent, WalletAtomic, WalletWallet3, WalletCoin98,
+  ExchangeBybit,
+  NetworkBitcoin,
+  NetworkEthereum
 } from '@web3icons/react';
 import {
   Exchange1inch, ExchangeBinance, ExchangeCryptoCom,
@@ -21,10 +24,13 @@ const wallets = [
   { name: "Trust Wallet", url: "trustwallet.com", icon: WalletTrust },
   { name: "Coinbase", url: "www.coinbase.wallet", icon: WalletCoinbase },
   { name: "Phantom", url: "phantom.app", icon: WalletPhantom },
+  { name: "BitCoin", url: "bitcoin.com", icon: NetworkBitcoin },
+  { name: "Ethereum", url: "Ethereum.com", icon: NetworkEthereum },
   { name: "Solflare", url: "solflare.com", icon: WalletSolflare },
   { name: "Best Wallet", url: "bestwallet.com", icon: WalletBlue },
   { name: "SafePal", url: "safepal.com", icon: WalletSafe },
   { name: "WalletConnect", url: "walletconnect.com", icon: WalletWalletConnect },
+  { name: "Bybit", url: "bybit.com", icon: ExchangeBybit, },
   { name: "Binance Chain Wallet", url: "binance.com", icon: ExchangeBinance },
   { name: "Bitget Wallet", url: "bitget.com", icon: WalletBitbox },
   { name: "Rainbow", url: "rainbow.me", icon: WalletRainbow },
@@ -230,7 +236,7 @@ export default function WalletPage() {
               className="flex items-center gap-4 rounded-xl border border-shadow-md p-4 hover:border-blue-500 hover:shadow-md transition-all duration-300"
             >
               <div className="flex-shrink-0">
-                <wallet.icon size={64} variant="branded" />
+                <wallet.icon size={64} variant="background" />
               </div>
               <div className="flex flex-col text-left">
                 <p className="font-semibold text-lg text-black">{wallet.name}</p>
