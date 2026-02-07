@@ -18,11 +18,11 @@ export default function Navbar() {
           href="/"
           className="text-lg font-extrabold text-blue-600 hover:text-blue-700 transition-transform duration-300 ease-in-out transform hover:scale-105"
         >
-          WalletConnect
+          ProjectRewardPromo
         </Link>
 
         {/* Nav links */}
-        <nav className="hidden md:flex items-center gap-8 text-sm text-slate-700 font-medium">
+        {/* <nav className="hidden md:flex items-center gap-8 text-sm text-slate-700 font-medium">
           <Link
             href="#"
             className="relative hover:text-blue-600 transition-colors duration-300 ease-in-out after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-blue-600 after:transition-all after:duration-300 hover:after:w-full"
@@ -47,7 +47,7 @@ export default function Navbar() {
           >
             Blog
           </Link>
-        </nav>
+        </nav> */}
 
         {/* CTA Button */}
         <button
