@@ -62,6 +62,8 @@ const wallets = [
   { name: "Tokenary", url: "tokenary.io", icon: TokenRAY },
   { name: "Infinito", url: "infinitywallet.io", icon: TokenIBAT },
   { name: "Ownbit", url: "ownbit.io", icon: TokenCROWN },
+  { name: "OTHERS...", icon: TokenCROWN },
+
   // { name: "EasyPocket", url: "https://easypocket.app", icon: <NetworkTreasure/> },
   // { name: "Bridge Wallet", url: "https://mtpelerin.com", icon: "bridge-wallet" },
   // { name: "ViaWallet", url: "https://viawallet.com", icon: "viawallet" },
