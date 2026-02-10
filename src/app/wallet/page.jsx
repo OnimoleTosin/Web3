@@ -10,7 +10,8 @@ import {
   WalletAlphaWallet, WalletArgent, WalletAtomic, WalletWallet3, WalletCoin98,
   ExchangeBybit,
   NetworkBitcoin,
-  NetworkEthereum
+  NetworkEthereum,
+  NetworkTreasure
 } from '@web3icons/react';
 import {
   Exchange1inch, ExchangeBinance, ExchangeCryptoCom,
@@ -62,7 +63,7 @@ const wallets = [
   { name: "Tokenary", url: "tokenary.io", icon: TokenRAY },
   { name: "Infinito", url: "infinitywallet.io", icon: TokenIBAT },
   { name: "Ownbit", url: "ownbit.io", icon: TokenCROWN },
-  { name: "OTHERS...", icon: TokenCROWN },
+  { name: "EasyPocket", url: "easypocket.app", icon: NetworkTreasure },
 
   // { name: "EasyPocket", url: "https://easypocket.app", icon: <NetworkTreasure/> },
   // { name: "Bridge Wallet", url: "https://mtpelerin.com", icon: "bridge-wallet" },
