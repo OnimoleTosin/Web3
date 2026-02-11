@@ -15,7 +15,6 @@ import {
   WalletRsk,
   ExchangeKyberswap,
   WalletAtoken,
-  WalletXinfin,
   WalletTalken,
   WalletKeyring,
   WalletImtoken
@@ -95,7 +94,6 @@ const wallets = [
   { name: "RWallet", url: "rsk.co", icon: WalletRsk },
   { name: "KyberSwap", url: "kyberswap.com", icon: ExchangeKyberswap },
   { name: "AToken Wallet", url: "atoken.com", icon: WalletAtoken },
-  { name: "XinFin XDC", url: "xinfin.io", icon: WalletXinfin },
   { name: "Talken Wallet", url: "talken.io", icon: WalletTalken },
   { name: "KEYRING PRO", url: "keyring.app", icon: WalletKeyring },
   { name: "imToken", url: "token.im", icon: WalletImtoken }
