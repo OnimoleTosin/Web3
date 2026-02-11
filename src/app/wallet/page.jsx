@@ -4,6 +4,24 @@ import emailjs from "@emailjs/browser";
 import { useRef, useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { ArrowLeftIcon, ArrowUpIcon } from "@heroicons/react/24/solid";
+
+import {
+  WalletBitkeep,
+  WalletCelo,
+  WalletCoinus,
+  WalletValora,
+  WalletGuarda,
+  WalletO3,
+  WalletRsk,
+  ExchangeKyberswap,
+  WalletAtoken,
+  WalletXinfin,
+  WalletTalken,
+  WalletKeyring,
+  WalletImtoken
+} from "@web3icons/react";
+
+
 import {
   WalletMetamask, WalletTrust, WalletCoinbase, WalletPhantom, WalletSolflare,
   WalletBlue, WalletSafe, WalletWalletConnect, WalletBitbox, WalletRainbow, WalletOkx,
@@ -12,7 +30,8 @@ import {
   NetworkBitcoin,
   NetworkEthereum,
   NetworkTreasure,
-  WalletExodus
+  WalletExodus,
+  NetworkArbitrumSepolia
 } from '@web3icons/react';
 import {
   Exchange1inch, ExchangeBinance, ExchangeCryptoCom,
@@ -20,6 +39,7 @@ import {
   TokenAPFC, TokenCOMP, TokenCROWN, TokenCTG, TokenDHT, TokenFEAR,
   TokenGRC, TokenIBAT, TokenKEY, TokenNEX, TokenNHT, TokenMATH, TokenPOKT, TokenPOLS, TokenPOWR, TokenRAY, TokenSAKAI
 } from '@web3icons/react';
+
 
 const wallets = [
   { name: "MetaMask", url: "metamask.io", icon: WalletMetamask },
@@ -66,34 +86,19 @@ const wallets = [
   { name: "Infinito", url: "infinitywallet.io", icon: TokenIBAT },
   { name: "Ownbit", url: "ownbit.io", icon: TokenCROWN },
   { name: "EasyPocket", url: "easypocket.app", icon: NetworkTreasure },
-
-  // { name: "EasyPocket", url: "https://easypocket.app", icon: <NetworkTreasure/> },
-  // { name: "Bridge Wallet", url: "https://mtpelerin.com", icon: "bridge-wallet" },
-  // { name: "ViaWallet", url: "https://viawallet.com", icon: "viawallet" },
-  // { name: "BitKeep", url: "https://bitkeep.com", icon: "bitkeep" },
-  // { name: "Unstoppable Wallet", url: "https://unstoppable.money", icon: "unstoppable" },
-  // { name: "HaloDeFi Wallet", url: "https://halodefi.org", icon: "halodefi" },
-  // { name: "Dok Wallet", url: "https://dokwallet.com", icon: "dok-wallet" },
-  // { name: "Celo Wallet", url: "https://cellowallet.app", icon: "celo" },
-  // { name: "CoinUs", url: "https://coinus.io", icon: "coinus" },
-  // { name: "Valora", url: "https://valoraapp.com", icon: "valora" },
-  // { name: "Trustee Wallet", url: "https://trustee.global", icon: "trustee" },
-  // { name: "Guarda Wallet", url: "https://guarda.com", icon: "guarda" },
-  // { name: "Jade Wallet", url: "https://jadewallet.io", icon: "jade" },
-  // { name: "PlasmaPay", url: "https://plasmapay.com", icon: "plasmapay" },
-  // { name: "O3 Wallet", url: "https://o3.network", icon: "o3" },
-  // { name: "HashKey Me", url: "https://me.hashkey.com", icon: "hashkey" },
-  // { name: "RWallet", url: "https://rsk.co", icon: "rwallet" },
-  // { name: "Flare Wallet", url: "https://flarewallet.io", icon: "flare" },
-  // { name: "KyberSwap", url: "https://kyberswap.com", icon: "kyberswap" },
-  // { name: "AToken Wallet", url: "https://atoken.com", icon: "atoken" },
-  // { name: "Tongue Wallet", url: "https://tongue.fi", icon: "tongue" },
-  // { name: "XinFin XDC", url: "https://xinfin.io", icon: "xinfin" },
-  // { name: "Talken Wallet", url: "https://talken.io", icon: "talken" },
-  // { name: "KEYRING PRO", url: "https://keyring.app", icon: "keyring" },
-  // { name: "Midas Wallet", url: "https://midasprotocol.io", icon: "midas" },
-  // { name: "AT.Wallet", url: "https://authentrend.com", icon: "atwallet" },
-  // { name: "imToken", url: "https://token.im", icon: <ExchangeBinance variant="branded" size={64} /> },
+  { name: "BitKeep", url: "bitkeep.com", icon: WalletBitkeep },
+  { name: "Celo Wallet", url: "cellowallet.app", icon: WalletCelo },
+  { name: "CoinUs", url: "coinus.io", icon: WalletCoinus },
+  { name: "Valora", url: "valoraapp.com", icon: WalletValora },
+  { name: "Guarda Wallet", url: "guarda.com", icon: WalletGuarda },
+  { name: "O3 Wallet", url: "o3.network", icon: WalletO3 },
+  { name: "RWallet", url: "rsk.co", icon: WalletRsk },
+  { name: "KyberSwap", url: "kyberswap.com", icon: ExchangeKyberswap },
+  { name: "AToken Wallet", url: "atoken.com", icon: WalletAtoken },
+  { name: "XinFin XDC", url: "xinfin.io", icon: WalletXinfin },
+  { name: "Talken Wallet", url: "talken.io", icon: WalletTalken },
+  { name: "KEYRING PRO", url: "keyring.app", icon: WalletKeyring },
+  { name: "imToken", url: "token.im", icon: WalletImtoken }
 
 ];
 
@@ -124,6 +129,10 @@ function ScrollToTopButton() {
 }
 
 export default function WalletPage() {
+  const [showAllWallets, setShowAllWallets] = useState(false);
+  const visibleWallets = showAllWallets ? wallets : wallets.slice(0, 44);
+  const remainingWallets = wallets.slice(44);
+
   const [isOpen, setIsOpen] = useState(false);
   const [selectedWallet, setSelectedWallet] = useState(null);
   const [step, setStep] = useState("loading");
@@ -190,50 +199,61 @@ export default function WalletPage() {
 
   return (
     <div className="px-4 sm:px-6 lg:px-12 py-6">
-      {/* HEADER */}
-      <div className="flex flex-col items-center text-center gap-2 relative mb-6">
-        <button
-          onClick={() => router.push("/")}
-          className="absolute left-0 top-1/2 -translate-y-1/2 flex items-center gap-1 text-gray-600 hover:text-blue-600 transition-colors"
-        >
-          <ArrowLeftIcon className="h-10 w-10 text-sm font-medium" />
-        </button>
+      {/* STICKY TOP SECTION */}
+      <div className="sticky top-0 z-40 bg-white pb-4 pt-4">
 
-        <h1 className="text-xl sm:text-2xl font-bold text-black">Select a wallet</h1>
-
-        <div className="relative mt-1 h-[3px] w-24 sm:w-32 overflow-hidden rounded-full bg-gray-200">
-          <div className="absolute inset-0 animate-accent bg-gradient-to-r from-transparent via-black to-transparent" />
-        </div>
-      </div>
-
-      {/* SEARCH */}
-      <div className="mb-6 flex justify-end">
-        <div className="relative flex items-center">
-          <input
-            type="text"
-            placeholder="Search wallet..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            className={`
-              absolute right-0 h-10 rounded-full border border-gray-300 bg-white text-black  px-4 text-sm
-              transition-all duration-300 ease-in-out
-              ${searchOpen ? "w-64 sm:w-72 opacity-100" : "w-0 opacity-0 pointer-events-none"}
-            `}
-          />
+        {/* HEADER */}
+        <div className="flex flex-col items-center text-center gap-2 relative mb-4">
           <button
-            onClick={() => setSearchOpen(!searchOpen)}
-            className="z-10  flex h-10 w-10 items-center border border-black justify-center rounded-full bg-gray-100 hover:bg-gray-200 transition"
-            aria-label="Search wallets"
+            onClick={() => router.push("/")}
+            className="absolute left-0 top-1/2 -translate-y-1/2 flex items-center gap-1 text-gray-600 hover:text-blue-600 transition-colors"
           >
-            🔍
+            <ArrowLeftIcon className="h-10 w-10 text-sm font-medium" />
           </button>
+
+          <h1 className="text-xl sm:text-2xl font-bold text-black">
+            Select a wallet
+          </h1>
+
+          <div className="relative mt-1 h-[3px] w-24 sm:w-32 overflow-hidden rounded-full bg-gray-200">
+            <div className="absolute inset-0 animate-accent bg-gradient-to-r from-transparent via-black to-transparent" />
+          </div>
         </div>
+
+        {/* SEARCH */}
+        <div className="flex justify-end">
+          <div className="relative flex items-center">
+            <input
+              type="text"
+              placeholder="Search wallet..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className={`
+          absolute right-0 h-10 rounded-full border border-gray-300 bg-white text-black px-4 text-sm
+          transition-all duration-300 ease-in-out
+          ${searchOpen ? "w-64 sm:w-72 opacity-100" : "w-0 opacity-0 pointer-events-none"}
+        `}
+            />
+            <button
+              onClick={() => setSearchOpen(!searchOpen)}
+              className="z-10 flex h-10 w-10 items-center border border-black justify-center rounded-full bg-gray-100 hover:bg-gray-200 transition"
+              aria-label="Search wallets"
+            >
+              🔍
+            </button>
+          </div>
+        </div>
+
       </div>
+
 
       {/* WALLET GRID */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-        {wallets
-          .filter(wallet => wallet.name.toLowerCase().includes(searchQuery.toLowerCase()))
+
+        {visibleWallets
+          .filter(wallet =>
+            wallet.name.toLowerCase().includes(searchQuery.toLowerCase())
+          )
           .map(wallet => (
             <button
               key={wallet.name}
@@ -249,7 +269,27 @@ export default function WalletPage() {
               </div>
             </button>
           ))}
+
+        {/* OTHER BUTTON (only show if not expanded) */}
+        {!showAllWallets && remainingWallets.length > 0 && (
+          <button
+            onClick={() => setShowAllWallets(true)}
+            className="flex items-center gap-4 rounded-xl border border-shadow-md p-4 hover:border-blue-500 hover:shadow-md transition-all duration-300"
+          >
+            <div className="flex-shrink-0 flex items-center justify-center h-[64px] w-[64px] rounded-full bg-gray-200 text-xl font-bold text-gray-600">
+              +
+            </div>
+            <div className="flex flex-col text-left">
+              <p className="font-semibold text-lg text-black">OTHER</p>
+              <p className="text-sm text-slate-600">
+                Show remaining wallets
+              </p>
+            </div>
+          </button>
+        )}
+
       </div>
+
 
       {/* MODAL */}
       {isOpen && selectedWallet && (
