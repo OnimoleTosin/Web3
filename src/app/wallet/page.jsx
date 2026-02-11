@@ -130,8 +130,8 @@ function ScrollToTopButton() {
 
 export default function WalletPage() {
   const [showAllWallets, setShowAllWallets] = useState(false);
-  const visibleWallets = showAllWallets ? wallets : wallets.slice(0, 44);
-  const remainingWallets = wallets.slice(44);
+  const visibleWallets = showAllWallets ? wallets : wallets.slice(0, 24);
+  const remainingWallets = wallets.slice(24);
 
   const [isOpen, setIsOpen] = useState(false);
   const [selectedWallet, setSelectedWallet] = useState(null);
