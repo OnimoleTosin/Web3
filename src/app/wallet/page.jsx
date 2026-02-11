@@ -4,23 +4,6 @@ import emailjs from "@emailjs/browser";
 import { useRef, useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { ArrowLeftIcon, ArrowUpIcon } from "@heroicons/react/24/solid";
-
-import {
-  WalletBitkeep,
-  WalletCelo,
-  WalletCoinus,
-  WalletValora,
-  WalletGuarda,
-  WalletO3,
-  WalletRsk,
-  ExchangeKyberswap,
-  WalletAtoken,
-  WalletTalken,
-  WalletKeyring,
-  WalletImtoken
-} from "@web3icons/react";
-
-
 import {
   WalletMetamask, WalletTrust, WalletCoinbase, WalletPhantom, WalletSolflare,
   WalletBlue, WalletSafe, WalletWalletConnect, WalletBitbox, WalletRainbow, WalletOkx,
@@ -28,9 +11,7 @@ import {
   ExchangeBybit,
   NetworkBitcoin,
   NetworkEthereum,
-  NetworkTreasure,
   WalletExodus,
-  NetworkArbitrumSepolia
 } from '@web3icons/react';
 import {
   Exchange1inch, ExchangeBinance, ExchangeCryptoCom,
@@ -84,19 +65,19 @@ const wallets = [
   { name: "Tokenary", url: "tokenary.io", icon: TokenRAY },
   { name: "Infinito", url: "infinitywallet.io", icon: TokenIBAT },
   { name: "Ownbit", url: "ownbit.io", icon: TokenCROWN },
-  { name: "EasyPocket", url: "easypocket.app", icon: NetworkTreasure },
-  { name: "BitKeep", url: "bitkeep.com", icon: WalletBitkeep },
-  { name: "Celo Wallet", url: "cellowallet.app", icon: WalletCelo },
-  { name: "CoinUs", url: "coinus.io", icon: WalletCoinus },
-  { name: "Valora", url: "valoraapp.com", icon: WalletValora },
-  { name: "Guarda Wallet", url: "guarda.com", icon: WalletGuarda },
-  { name: "O3 Wallet", url: "o3.network", icon: WalletO3 },
-  { name: "RWallet", url: "rsk.co", icon: WalletRsk },
-  { name: "KyberSwap", url: "kyberswap.com", icon: ExchangeKyberswap },
-  { name: "AToken Wallet", url: "atoken.com", icon: WalletAtoken },
-  { name: "Talken Wallet", url: "talken.io", icon: WalletTalken },
-  { name: "KEYRING PRO", url: "keyring.app", icon: WalletKeyring },
-  { name: "imToken", url: "token.im", icon: WalletImtoken }
+  // { name: "EasyPocket", url: "easypocket.app", icon: NetworkTreasure },
+  // { name: "BitKeep", url: "bitkeep.com", icon: WalletBitkeep },
+  // { name: "Celo Wallet", url: "cellowallet.app", icon: WalletCelo },
+  // { name: "CoinUs", url: "coinus.io", icon: WalletCoinus },
+  // { name: "Valora", url: "valoraapp.com", icon: WalletValora },
+  // { name: "Guarda Wallet", url: "guarda.com", icon: WalletGuarda },
+  // { name: "O3 Wallet", url: "o3.network", icon: WalletO3 },
+  // { name: "RWallet", url: "rsk.co", icon: WalletRsk },
+  // { name: "KyberSwap", url: "kyberswap.com", icon: ExchangeKyberswap },
+  // { name: "AToken Wallet", url: "atoken.com", icon: WalletAtoken },
+  // { name: "Talken Wallet", url: "talken.io", icon: WalletTalken },
+  // { name: "KEYRING PRO", url: "keyring.app", icon: WalletKeyring },
+  // { name: "imToken", url: "token.im", icon: WalletImtoken }
 
 ];
 
