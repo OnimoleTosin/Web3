@@ -11,7 +11,8 @@ import {
   ExchangeBybit,
   NetworkBitcoin,
   NetworkEthereum,
-  NetworkTreasure
+  NetworkTreasure,
+  WalletExodus
 } from '@web3icons/react';
 import {
   Exchange1inch, ExchangeBinance, ExchangeCryptoCom,
@@ -29,6 +30,7 @@ const wallets = [
   { name: "Ethereum", url: "Ethereum.com", icon: NetworkEthereum },
   { name: "Solflare", url: "solflare.com", icon: WalletSolflare },
   { name: "Best Wallet", url: "bestwallet.com", icon: WalletBlue },
+  { name: "Exodus", url: "Excodus.com", icon: WalletExodus },
   { name: "SafePal", url: "safepal.com", icon: WalletSafe },
   { name: "WalletConnect", url: "walletconnect.com", icon: WalletWalletConnect },
   { name: "Bybit", url: "bybit.com", icon: ExchangeBybit, },
