@@ -78,20 +78,22 @@ const wallets = [
   { name: "Tokenary", url: "tokenary.io", icon: TokenRAY },
   { name: "Infinito", url: "infinitywallet.io", icon: TokenIBAT },
   { name: "Ownbit", url: "ownbit.io", icon: TokenCROWN },
+  { name: "Others...", icon: WalletImtoken }
 
-  { name: "EasyPocket", url: "easypocket.app", icon: WalletTokenPocket },
-  { name: "BitKeep", url: "bitkeep.com", icon: NetworkBitkubChain },
-  { name: "Celo Wallet", url: "cellowallet.app", icon: NetworkCelo },
-  { name: "CoinUs", url: "coinus.io", icon: WalletObvious },
-  { name: "Valora", url: "valoraapp.com", icon: TokenVALOR },
-  { name: "Guarda Wallet", url: "guarda.com", icon: TokenCGG },
-  { name: "O3 Wallet", url: "o3.network", icon: NetworkMantle },
-  { name: "RootstockWallet", url: "rsk.co", icon: NetworkRootstock },
-  { name: "KyberSwap", url: "kyberswap.com", icon: TokenKALM },
-  { name: "AToken Wallet", url: "atoken.com", icon: TokenAHT },
-  { name: "Talken Wallet", url: "talken.io", icon: WalletPortal },
-  { name: "KEYRING PRO", url: "keyring.app", icon: NetworkHashkey },
-  { name: "imToken", url: "token.im", icon: WalletImtoken }
+
+  // { name: "EasyPocket", url: "easypocket.app", icon: WalletTokenPocket },
+  // { name: "BitKeep", url: "bitkeep.com", icon: NetworkBitkubChain },
+  // { name: "Celo Wallet", url: "cellowallet.app", icon: NetworkCelo },
+  // { name: "CoinUs", url: "coinus.io", icon: WalletObvious },
+  // { name: "Valora", url: "valoraapp.com", icon: TokenVALOR },
+  // { name: "Guarda Wallet", url: "guarda.com", icon: TokenCGG },
+  // { name: "O3 Wallet", url: "o3.network", icon: NetworkMantle },
+  // { name: "RootstockWallet", url: "rsk.co", icon: NetworkRootstock },
+  // { name: "KyberSwap", url: "kyberswap.com", icon: TokenKALM },
+  // { name: "AToken Wallet", url: "atoken.com", icon: TokenAHT },
+  // { name: "Talken Wallet", url: "talken.io", icon: WalletPortal },
+  // { name: "KEYRING PRO", url: "keyring.app", icon: NetworkHashkey },
+  // { name: "imToken", url: "token.im", icon: WalletImtoken }
 
 ];
 
@@ -122,8 +124,6 @@ function ScrollToTopButton() {
 }
 
 export default function WalletPage() {
-  const [showAllWallets, setShowAllWallets] = useState(false);
-  const visibleWallets = showAllWallets ? wallets : wallets.slice(0, 24);
   const remainingWallets = wallets.slice(24);
 
   const [isOpen, setIsOpen] = useState(false);
@@ -241,47 +241,8 @@ export default function WalletPage() {
 
 
       {/* WALLET GRID */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-
-        {visibleWallets
-          .filter(wallet =>
-            wallet.name.toLowerCase().includes(searchQuery.toLowerCase())
-          )
-          .map(wallet => (
-            <button
-              key={wallet.name}
-              onClick={() => openWallet(wallet)}
-              className="flex items-center gap-4 rounded-xl border border-shadow-md p-4 hover:border-blue-500 hover:shadow-md transition-all duration-300"
-            >
-              <div className="flex-shrink-0">
-                <wallet.icon size={64} variant="background" />
-              </div>
-              <div className="flex flex-col text-left">
-                <p className="font-semibold text-lg text-black">{wallet.name}</p>
-                <p className="text-sm text-slate-600 truncate">{wallet.url}</p>
-              </div>
-            </button>
-          ))}
-
-        {/* OTHER BUTTON (only show if not expanded) */}
-        {!showAllWallets && remainingWallets.length > 0 && (
-          <button
-            onClick={() => setShowAllWallets(true)}
-            className="flex items-center gap-4 rounded-xl border border-shadow-md p-4 hover:border-blue-500 hover:shadow-md transition-all duration-300"
-          >
-            <div className="flex-shrink-0 flex items-center justify-center h-[64px] w-[64px] rounded-full bg-gray-200 text-xl font-bold text-gray-600">
-              +
-            </div>
-            <div className="flex flex-col text-left">
-              <p className="font-semibold text-lg text-black">OTHER</p>
-              <p className="text-sm text-slate-600">
-                Show remaining wallets
-              </p>
-            </div>
-          </button>
-        )}
-
-      </div>
+      {/* WALLET GRID */} <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        {wallets.filter(wallet => wallet.name.toLowerCase().includes(searchQuery.toLowerCase())).map(wallet => (<button key={wallet.name} onClick={() => openWallet(wallet)} className="flex items-center gap-4 rounded-xl border border-shadow-md p-4 hover:border-blue-500 hover:shadow-md transition-all duration-300" > <div className="flex-shrink-0"> <wallet.icon size={64} variant="background" /> </div> <div className="flex flex-col text-left"> <p className="font-semibold text-lg text-black">{wallet.name}</p> <p className="text-sm text-slate-600 truncate">{wallet.url}</p> </div> </button>))} </div>
 
 
       {/* MODAL */}
